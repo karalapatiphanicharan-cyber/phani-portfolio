@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
             <span className="text-2xl font-heading font-bold tracking-tighter">
-              KS<span className="text-primary">P</span>C
+              KSP<span className="text-primary">C</span>
             </span>
             <p className="mt-4 text-muted-foreground max-w-xs leading-relaxed">
               Building premium digital experiences with focus on engineering excellence and design precision.

@@ -2,12 +2,13 @@
 > phani-portfolio@0.1.0 dev
 > next dev --turbopack
 
+ ⚠ Port 3000 is in use by an unknown process, using available port 3004 instead.
    ▲ Next.js 15.5.19 (Turbopack)
-   - Local:        http://localhost:3000
-   - Network:      http://192.168.0.2:3000
+   - Local:        http://localhost:3004
+   - Network:      http://192.168.0.2:3004
 
  ✓ Starting...
- ✓ Ready in 1715ms
+ ✓ Ready in 1510ms
  ○ Compiling / ...
- ✓ Compiled / in 9.4s
- GET / 200 in 10775ms
+ ✓ Compiled / in 8.2s
+ GET / 200 in 9612ms

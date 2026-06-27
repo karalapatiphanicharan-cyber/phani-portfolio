@@ -27,7 +27,7 @@ export function Navigation() {
     >
       <MaxWidthWrapper className="flex items-center justify-between">
         <Link href="/" className="text-2xl font-heading font-bold tracking-tighter hover:opacity-80 transition-opacity">
-          KS<span className="text-primary">P</span>C
+          KSP<span className="text-primary">C</span>
         </Link>
 
         {/* Desktop Nav */}
