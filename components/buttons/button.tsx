@@ -42,7 +42,7 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     if (asChild) {
-      /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
+      /* eslint-disable @typescript-eslint/no-unused-vars */
       const {
         whileHover,
         whileTap,
@@ -53,13 +53,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         exit,
         style,
         ...filteredProps
-      } = props as any
-      /* eslint-enable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
+      } = props
+      /* eslint-enable @typescript-eslint/no-unused-vars */
+
       return (
         <Slot
           className={cn(buttonVariants({ variant, size, className }))}
           ref={ref}
-          {...filteredProps}
+          {...(filteredProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}
         />
       )
     }

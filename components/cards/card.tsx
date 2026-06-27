@@ -16,10 +16,6 @@ export function Card({
   children,
   ...props
 }: CardProps) {
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const filteredProps = props as any
-  /* eslint-enable @typescript-eslint/no-explicit-any */
-
   return (
     <motion.div
       whileHover={hoverEffect ? { y: -5, transition: { duration: 0.2 } } : {}}
@@ -30,7 +26,7 @@ export function Card({
         hoverEffect && "hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10",
         className
       )}
-      {...filteredProps}
+      {...(props as HTMLMotionProps<"div">)}
     >
       {/* Gloss Effect for Glass Variant */}
       {variant === "glass" && (

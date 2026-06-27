@@ -22,8 +22,11 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Premium Portfolio Foundation',
+  title: 'K. Sri Phani Charan | Software Developer',
   description: 'World-class engineering portfolio design system',
+  icons: {
+    icon: '/favicon.svg',
+  }
 }
 
 export default function RootLayout({
@@ -36,6 +39,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px]" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/5 blur-[120px]" />
+        </div>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

@@ -9,7 +9,7 @@ export function MaxWidthWrapper({
   children: React.ReactNode
 }) {
   return (
-    <div className={cn("mx-auto w-full max-w-screen-xl px-4 md:px-20", className)}>
+    <div className={cn("mx-auto w-full max-w-screen-2xl px-6 md:px-12 lg:px-20", className)}>
       {children}
     </div>
   )
@@ -67,7 +67,7 @@ export function Container({
   children: React.ReactNode
 }) {
   return (
-    <div className={cn("flex flex-col gap-20 md:gap-32", className)}>
+    <div className={cn("flex flex-col gap-24 md:gap-32 lg:gap-40", className)}>
       {children}
     </div>
   )
