@@ -1,58 +1,24 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Section, MaxWidthWrapper } from "@/components/layout/layout"
 import { ProjectCard } from "@/components/cards/project-card"
-import { mainProducts, studyProjects } from "@/lib/projects-data"
+import { mainProducts, studyProjects, gameProjects, aiProjects } from "@/lib/projects-data"
 import { fadeUp, staggerContainer } from "@/lib/animations"
 import { cn } from "@/lib/utils"
 
 const categories = [
-  { id: "main-products", label: "Main Products" },
-  { id: "study-visualization", label: "Study & Visualization" },
-  { id: "games", label: "Games" },
-  { id: "ai-utilities", label: "AI Utilities" },
+  { id: "main-products", label: "Main Products", data: mainProducts },
+  { id: "study-visualization", label: "Study & Visualization", data: studyProjects },
+  { id: "games", label: "Games", data: gameProjects },
+  { id: "ai-utilities", label: "AI Utilities", data: aiProjects },
 ]
 
 export function Projects() {
-  const [activeCategory, setActiveCategory] = React.useState("main-products")
+  const [activeTab, setActiveTab] = React.useState("main-products")
 
-  // Improved scroll spying for all sections
-  React.useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -70% 0px",
-      threshold: 0,
-    }
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveCategory(entry.target.id)
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions)
-
-    const sections = ["main-products", "study-visualization"]
-    sections.forEach((id) => {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      const yOffset = -140 // Adjust based on sticky header height
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
-      window.scrollTo({ top: y, behavior: "smooth" })
-    }
-  }
+  const activeCategory = categories.find(cat => cat.id === activeTab) || categories[0]
 
   return (
     <Section id="projects" className="relative border-t border-white/[0.02] bg-background/50">
@@ -63,41 +29,41 @@ export function Projects() {
       </div>
 
       <MaxWidthWrapper>
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="space-y-16 md:space-y-24"
-        >
+        <div className="space-y-16 md:space-y-24">
           {/* Projects Header */}
-          <motion.div variants={fadeUp} className="text-center space-y-6">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center space-y-6"
+          >
             <h2 className="section-title">Projects</h2>
             <p className="subtitle mx-auto max-w-3xl">
               A curated collection of AI-powered applications, full-stack products, and modern software built to solve real-world problems through thoughtful engineering and user-focused design.
             </p>
           </motion.div>
 
-          {/* Sticky Category Navigation */}
-          <div className="sticky top-20 z-40 py-6 mb-12 -mx-4 px-4 bg-background/80 backdrop-blur-md border-y border-white/[0.05]">
-            <div className="flex items-center justify-center gap-2 md:gap-8 overflow-x-auto no-scrollbar">
+          {/* Tab Navigation */}
+          <div className="sticky top-20 z-40 py-6 -mx-4 px-4 bg-background/80 backdrop-blur-md border-y border-white/[0.05]">
+            <div className="flex items-center justify-center gap-2 md:gap-8 overflow-x-auto no-scrollbar pb-1">
               {categories.map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => scrollToSection(category.id)}
+                  onClick={() => setActiveTab(category.id)}
                   className={cn(
-                    "relative px-4 py-2 text-sm font-medium transition-all duration-300 whitespace-nowrap",
-                    activeCategory === category.id
+                    "relative px-4 py-2 text-sm font-medium transition-all duration-300 whitespace-nowrap outline-none",
+                    activeTab === category.id
                       ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-muted-foreground/60 hover:text-foreground"
                   )}
                 >
                   {category.label}
-                  {activeCategory === category.id && (
+                  {activeTab === category.id && (
                     <motion.div
-                      layoutId="activeCategory"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      layoutId="activeTabUnderline"
+                      className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
                 </button>
@@ -105,43 +71,43 @@ export function Projects() {
             </div>
           </div>
 
-          {/* Projects Sections Container */}
-          <div className="space-y-32 md:space-y-48">
-            {/* Main Products Section */}
-            <div id="main-products" className="scroll-mt-40 space-y-20 md:space-y-32">
-              <motion.div variants={fadeUp} className="space-y-4">
-                <h3 className="text-2xl md:text-3xl font-bold">Main Products</h3>
-                <p className="body-text max-w-2xl text-lg">
-                  Production-ready software products built using Artificial Intelligence, Full Stack Development, scalable architecture, and modern UI/UX principles.
-                </p>
+          {/* Project Showcase Area */}
+          <div className="min-h-[600px] relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="space-y-20 md:space-y-32"
+              >
+                {/* Category Info */}
+                <div className="space-y-4">
+                  <h3 className="text-2xl md:text-3xl font-bold">{activeCategory.label}</h3>
+                  <p className="body-text max-w-2xl text-lg">
+                    {activeTab === "main-products" && "Production-ready software products built using Artificial Intelligence, Full Stack Development, scalable architecture, and modern UI/UX principles."}
+                    {activeTab === "study-visualization" && "Interactive educational software and visualization tools designed to simplify complex computer science concepts through modern UI, real-time simulations, and algorithm visualization."}
+                    {activeTab === "games" && "Engaging and interactive games and simulations built with modern web technologies, focusing on performance, physics-based mechanics, and user experience."}
+                    {activeTab === "ai-utilities" && "Powerful AI-driven tools and utilities designed to enhance productivity, refine content, and solve specific problems using state-of-the-art language models."}
+                  </p>
+                </div>
+
+                {/* Projects List with Stagger */}
+                <motion.div
+                  variants={staggerContainer}
+                  initial="hidden"
+                  animate="visible"
+                  className="space-y-0"
+                >
+                  {activeCategory.data.map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
+                </motion.div>
               </motion.div>
-
-              {/* Projects List */}
-              <div className="space-y-0">
-                {mainProducts.map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
-                ))}
-              </div>
-            </div>
-
-            {/* Study & Visualization Section */}
-            <div id="study-visualization" className="scroll-mt-40 space-y-20 md:space-y-32">
-              <motion.div variants={fadeUp} className="space-y-4">
-                <h3 className="text-2xl md:text-3xl font-bold">Study & Visualization</h3>
-                <p className="body-text max-w-2xl text-lg">
-                  Interactive educational software and visualization tools designed to simplify complex computer science concepts through modern UI, real-time simulations, and algorithm visualization.
-                </p>
-              </motion.div>
-
-              {/* Projects List */}
-              <div className="space-y-0">
-                {studyProjects.map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
-                ))}
-              </div>
-            </div>
+            </AnimatePresence>
           </div>
-        </motion.div>
+        </div>
       </MaxWidthWrapper>
     </Section>
   )
