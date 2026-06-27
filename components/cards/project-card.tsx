@@ -53,6 +53,12 @@ const colorMap: Record<string, { text: string; bg: string; border: string; glow:
     border: "border-orange-400/20",
     glow: "shadow-orange-500/20"
   },
+  indigo: {
+    text: "text-indigo-400",
+    bg: "bg-indigo-400",
+    border: "border-indigo-400/20",
+    glow: "shadow-indigo-500/20"
+  },
 }
 
 export function ProjectCard({ project, index }: ProjectCardProps) {

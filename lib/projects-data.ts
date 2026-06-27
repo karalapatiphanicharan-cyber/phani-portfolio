@@ -81,3 +81,54 @@ export const mainProducts: Project[] = [
     },
   },
 ];
+
+export const studyProjects: Project[] = [
+  {
+    id: "arrayiq",
+    category: "Algorithm Visualization Platform",
+    name: "ArrayIQ",
+    subtitle: "Visualize algorithms. Understand complexity.",
+    description: "ArrayIQ is an interactive educational platform that visualizes sorting and searching algorithms with animated execution, benchmarking, and real-time performance comparisons to make algorithm learning intuitive and engaging.",
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    features: ["Sorting Algorithms", "Searching Algorithms", "Visualization", "Benchmarking", "Real-Time Animation", "Educational Platform"],
+    liveUrl: "https://arrayiq.vercel.app",
+    githubUrl: "https://github.com/karalapatiphanicharan-cyber/arrayiq",
+    visual: {
+      gradient: "from-blue-600 via-blue-500 to-indigo-600",
+      emojis: ["📊", "⚡", "📈"],
+      color: "blue",
+    },
+  },
+  {
+    id: "schedulix",
+    category: "CPU Scheduling Simulator",
+    name: "Schedulix",
+    subtitle: "Learn CPU scheduling through interactive simulation.",
+    description: "Schedulix is an educational operating systems simulator that visualizes CPU scheduling algorithms using animated Gantt charts, process queues, execution timelines, and detailed performance metrics.",
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    features: ["FCFS", "SJF", "Priority", "Round Robin", "Gantt Chart", "Performance Metrics"],
+    liveUrl: "https://schedulix-theta.vercel.app",
+    githubUrl: "https://github.com/karalapatiphanicharan-cyber/Schedulix",
+    visual: {
+      gradient: "from-indigo-600 via-indigo-500 to-purple-600",
+      emojis: ["⚙️", "🖥️", "📋"],
+      color: "indigo",
+    },
+  },
+  {
+    id: "seekflow",
+    category: "Disk Scheduling Visualizer",
+    name: "SeekFlow",
+    subtitle: "Interactive disk scheduling made simple.",
+    description: "SeekFlow is an educational visualization tool that demonstrates disk scheduling algorithms through animated disk head movement, traversal paths, algorithm comparison, and performance analysis.",
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    features: ["FCFS", "SCAN", "LOOK", "Disk Traversal", "Interactive Graphs", "Performance Analysis"],
+    liveUrl: "https://seekflow-eight.vercel.app",
+    githubUrl: "https://github.com/karalapatiphanicharan-cyber/seekflow",
+    visual: {
+      gradient: "from-cyan-500 via-cyan-400 to-blue-500",
+      emojis: ["💿", "📍", "📡"],
+      color: "cyan",
+    },
+  },
+];
