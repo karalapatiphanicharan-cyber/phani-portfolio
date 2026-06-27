@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion } from "framer-motion"
 import { Section, MaxWidthWrapper } from "@/components/layout/layout"
 import { ProjectCard } from "@/components/cards/project-card"
-import { mainProducts } from "@/lib/projects-data"
+import { mainProducts, studyProjects } from "@/lib/projects-data"
 import { fadeUp, staggerContainer } from "@/lib/animations"
 import { cn } from "@/lib/utils"
 
@@ -18,20 +18,41 @@ const categories = [
 export function Projects() {
   const [activeCategory, setActiveCategory] = React.useState("main-products")
 
-  // Basic scroll spying for the main products section
+  // Improved scroll spying for all sections
   React.useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById("projects")
-      if (section) {
-        const rect = section.getBoundingClientRect()
-        if (rect.top <= 200 && rect.bottom >= 200) {
-          setActiveCategory("main-products")
-        }
-      }
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -70% 0px",
+      threshold: 0,
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveCategory(entry.target.id)
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+
+    const sections = ["main-products", "study-visualization"]
+    sections.forEach((id) => {
+      const element = document.getElementById(id)
+      if (element) observer.observe(element)
+    })
+
+    return () => observer.disconnect()
   }, [])
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      const yOffset = -140 // Adjust based on sticky header height
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+      window.scrollTo({ top: y, behavior: "smooth" })
+    }
+  }
 
   return (
     <Section id="projects" className="relative border-t border-white/[0.02] bg-background/50">
@@ -63,11 +84,7 @@ export function Projects() {
               {categories.map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => {
-                    if (category.id === "main-products") {
-                      document.getElementById("main-products")?.scrollIntoView({ behavior: "smooth", block: "start" })
-                    }
-                  }}
+                  onClick={() => scrollToSection(category.id)}
                   className={cn(
                     "relative px-4 py-2 text-sm font-medium transition-all duration-300 whitespace-nowrap",
                     activeCategory === category.id
@@ -88,20 +105,40 @@ export function Projects() {
             </div>
           </div>
 
-          {/* Main Products Section */}
-          <div id="main-products" className="scroll-mt-40 space-y-20 md:space-y-32">
-            <motion.div variants={fadeUp} className="space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold">Main Products</h3>
-              <p className="body-text max-w-2xl text-lg">
-                Production-ready software products built using Artificial Intelligence, Full Stack Development, scalable architecture, and modern UI/UX principles.
-              </p>
-            </motion.div>
+          {/* Projects Sections Container */}
+          <div className="space-y-32 md:space-y-48">
+            {/* Main Products Section */}
+            <div id="main-products" className="scroll-mt-40 space-y-20 md:space-y-32">
+              <motion.div variants={fadeUp} className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold">Main Products</h3>
+                <p className="body-text max-w-2xl text-lg">
+                  Production-ready software products built using Artificial Intelligence, Full Stack Development, scalable architecture, and modern UI/UX principles.
+                </p>
+              </motion.div>
 
-            {/* Projects List */}
-            <div className="space-y-0">
-              {mainProducts.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
-              ))}
+              {/* Projects List */}
+              <div className="space-y-0">
+                {mainProducts.map((project, index) => (
+                  <ProjectCard key={project.id} project={project} index={index} />
+                ))}
+              </div>
+            </div>
+
+            {/* Study & Visualization Section */}
+            <div id="study-visualization" className="scroll-mt-40 space-y-20 md:space-y-32">
+              <motion.div variants={fadeUp} className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold">Study & Visualization</h3>
+                <p className="body-text max-w-2xl text-lg">
+                  Interactive educational software and visualization tools designed to simplify complex computer science concepts through modern UI, real-time simulations, and algorithm visualization.
+                </p>
+              </motion.div>
+
+              {/* Projects List */}
+              <div className="space-y-0">
+                {studyProjects.map((project, index) => (
+                  <ProjectCard key={project.id} project={project} index={index} />
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
