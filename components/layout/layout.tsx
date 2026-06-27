@@ -43,7 +43,7 @@ export function Grid({
   className?: string
   children: React.ReactNode
   cols?: 1 | 2 | 3 | 4
-  gap?: number
+  gap?: 2 | 4 | 6 | 8 | 10 | 12 | 16 | 20 | 24 | 32
 }) {
   const colMap = {
     1: "grid-cols-1",
@@ -52,8 +52,21 @@ export function Grid({
     4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
   }
 
+  const gapMap = {
+    2: "gap-2",
+    4: "gap-4",
+    6: "gap-6",
+    8: "gap-8",
+    10: "gap-10",
+    12: "gap-12",
+    16: "gap-16",
+    20: "gap-20",
+    24: "gap-24",
+    32: "gap-32",
+  }
+
   return (
-    <div className={cn("grid", colMap[cols], `gap-${gap}`, className)}>
+    <div className={cn("grid", colMap[cols], gapMap[gap], className)}>
       {children}
     </div>
   )

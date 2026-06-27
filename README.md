@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Premium Portfolio Website
 
-## Getting Started
+A world-class, SaaS-inspired personal portfolio foundation built with Next.js 15, Tailwind CSS v4, and Framer Motion.
 
-First, run the development server:
+## 🚀 Vision
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project is designed with a "Software as a Service" (SaaS) aesthetic, prioritizing engineering excellence, design precision, and smooth interactions. It moves beyond the typical developer portfolio to feel like a premium software product.
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js 15 (App Router)](https://nextjs.org/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Components:** [shadcn/ui](https://ui.shadcn.com/) (Customized)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Theme:** [next-themes](https://github.com/pacocoursey/next-themes)
+- **Type Safety:** [TypeScript](https://www.typescriptlang.org/)
+
+## 🏗️ Architecture
+
+The project follows a modular, scalable folder structure:
+
+```text
+app/          # App router pages and global styles
+components/   # Reusable UI components and section shells
+  ui/         # Atomic design components (Buttons, Badges, etc.)
+  layout/     # Structural components (Container, Grid, Sections)
+  navigation/ # Header and navigation components
+  sections/   # Feature-specific sections (Hero, etc.)
+lib/          # Utility functions and shared animation variants
+styles/       # Global CSS and theme configuration
+public/       # Static assets (fonts, icons, images)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features (Phase 1 & 2)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Premium Design System:** Custom dark theme with glassmorphism, glowing borders, and subtle gradients.
+- **Responsive Layout:** Adaptive grid system and containers for all viewports (Mobile to Ultra-wide).
+- **Animation Engine:** Pre-configured Framer Motion variants for consistent reveals and hover effects.
+- **Hero Section:** High-impact landing area featuring animated code visuals and social integration.
+- **Accessibility:** Semantic HTML and ARIA support following WCAG best practices.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏁 Getting Started
 
-## Learn More
+1. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📜 Development Workflow
 
-## Deploy on Vercel
+- **Linting:** `npm run lint` ensures code quality and consistency.
+- **Formatting:** Prettier is used for automated code formatting.
+- **Styling:** Tailwind 4 `@theme` directive is used in `app/globals.css` for design tokens.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Designed & Built with Precision.
