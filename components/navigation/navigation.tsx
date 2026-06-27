@@ -26,18 +26,18 @@ export function Navigation() {
       )}
     >
       <MaxWidthWrapper className="flex items-center justify-between">
-        <Link href="/" className="text-xl font-heading font-bold tracking-tighter">
-          PORTFOLIO<span className="text-primary">.</span>
+        <Link href="/" className="text-2xl font-heading font-bold tracking-tighter hover:opacity-80 transition-opacity">
+          KS<span className="text-primary">P</span>C
         </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          <div className="flex gap-6">
+          <div className="flex gap-8">
             <span className="text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Projects</span>
             <span className="text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer transition-colors">About</span>
             <span className="text-sm font-medium text-muted-foreground hover:text-foreground cursor-pointer transition-colors">Contact</span>
           </div>
-          <Button variant="primary" size="sm">
+          <Button variant="primary" size="sm" className="rounded-full px-6">
             Resume
           </Button>
         </div>
@@ -61,11 +61,11 @@ export function Navigation() {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 right-0 bg-background border-b border-border p-6 md:hidden"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
                <span className="text-lg font-medium">Projects</span>
                <span className="text-lg font-medium">About</span>
                <span className="text-lg font-medium">Contact</span>
-               <Button className="w-full">Resume</Button>
+               <Button className="w-full rounded-full">Resume</Button>
             </div>
           </motion.div>
         )}
