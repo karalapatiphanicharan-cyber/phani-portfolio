@@ -127,37 +127,168 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             className="absolute bottom-1/4 right-1/4 w-28 h-28 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full"
           />
 
-          {/* Main Emoji */}
-          <div className="relative z-10">
-            <motion.span
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              className="text-8xl md:text-9xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] select-none cursor-default"
-            >
-              {project.visual.emojis[0]}
-            </motion.span>
-          </div>
+          {/* Custom Illustration for Shortify AI */}
+          {project.id === "shortify-ai" ? (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              {/* AI Core (Centerpiece) */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.05, 1],
+                  rotate: [0, 90, 180, 270, 360],
+                  boxShadow: [
+                    "0 0 40px rgba(59,130,246,0.3)",
+                    "0 0 60px rgba(139,92,246,0.4)",
+                    "0 0 40px rgba(59,130,246,0.3)"
+                  ]
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="relative z-30 w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-tr from-blue-500/30 to-purple-500/30 backdrop-blur-xl border border-white/20 flex items-center justify-center"
+              >
+                <span className="text-6xl md:text-7xl drop-shadow-2xl select-none">🤖</span>
+                {/* Internal Pulsing Core */}
+                <div className="absolute inset-2 rounded-full bg-blue-400/10 animate-pulse" />
+              </motion.div>
 
-          {/* Floating minor emojis */}
-          {project.visual.emojis.slice(1).map((emoji, i) => (
-            <motion.span
-              key={i}
-              animate={{
-                y: [0, i % 2 === 0 ? -15 : 15, 0],
-                x: [0, i % 2 === 0 ? 10 : -10, 0],
-              }}
-              transition={{
-                duration: 4 + i,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className={cn(
-                "absolute text-4xl md:text-5xl drop-shadow-xl select-none cursor-default",
-                i === 0 ? "top-1/4 right-[20%]" : "bottom-1/4 left-[20%]"
-              )}
-            >
-              {emoji}
-            </motion.span>
-          ))}
+              {/* Floating Document Pages (Flowing In) */}
+              <div className="absolute left-8 md:left-16 space-y-4">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={`doc-${i}`}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{
+                      x: [0, 60, 0],
+                      y: [0, -10, 10, 0],
+                      opacity: [0.4, 0.8, 0.4],
+                      rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{
+                      duration: 4 + i,
+                      repeat: Infinity,
+                      delay: i * 0.5,
+                      ease: "easeInOut"
+                    }}
+                    className="w-12 h-16 md:w-16 md:h-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg flex flex-col p-2 space-y-1.5"
+                  >
+                    <div className="w-full h-1 bg-white/40 rounded-full" />
+                    <div className="w-4/5 h-1 bg-white/20 rounded-full" />
+                    <div className="w-full h-1 bg-white/20 rounded-full" />
+                    <div className="w-3/4 h-1 bg-white/20 rounded-full" />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Summary Card (Emerging Out) */}
+              <motion.div
+                initial={{ x: 20, opacity: 0 }}
+                animate={{
+                  x: [0, -30, 0],
+                  y: [0, 10, -10, 0],
+                  opacity: [0.7, 1, 0.7],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute right-8 md:right-16 z-40 w-24 h-24 md:w-32 md:h-32 bg-white/20 backdrop-blur-xl border border-white/30 rounded-2xl shadow-2xl flex flex-col p-4 space-y-3"
+              >
+                <div className="w-1/3 h-2 bg-blue-400/60 rounded-full" />
+                <div className="w-full h-1.5 bg-white/40 rounded-full" />
+                <div className="w-full h-1.5 bg-white/40 rounded-full" />
+                <div className="flex justify-between items-center pt-2">
+                  <div className="w-8 h-1.5 bg-blue-400/40 rounded-full" />
+                  <span className="text-xs">✨</span>
+                </div>
+              </motion.div>
+
+              {/* Connection Lines (Abstract) */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 100 100">
+                <motion.path
+                  d="M20,30 Q40,50 50,50"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="0.5"
+                  strokeDasharray="2,2"
+                  animate={{ strokeDashoffset: [0, -20] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.path
+                  d="M20,70 Q40,50 50,50"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="0.5"
+                  strokeDasharray="2,2"
+                  animate={{ strokeDashoffset: [0, -20] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.path
+                  d="M50,50 Q60,50 80,50"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1"
+                  animate={{ opacity: [0.2, 0.6, 0.2] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+              </svg>
+
+              {/* Sparkles & Particles */}
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={`sparkle-${i}`}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [0, 1, 0],
+                    x: Math.sin(i) * 60,
+                    y: Math.cos(i) * 60
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: i * 0.5,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute z-50 text-blue-400/60 pointer-events-none"
+                >
+                  ✨
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <>
+              {/* Main Emoji */}
+              <div className="relative z-10">
+                <motion.span
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="text-8xl md:text-9xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] select-none cursor-default"
+                >
+                  {project.visual.emojis[0]}
+                </motion.span>
+              </div>
+
+              {/* Floating minor emojis */}
+              {project.visual.emojis.slice(1).map((emoji, i) => (
+                <motion.span
+                  key={i}
+                  animate={{
+                    y: [0, i % 2 === 0 ? -15 : 15, 0],
+                    x: [0, i % 2 === 0 ? 10 : -10, 0],
+                  }}
+                  transition={{
+                    duration: 4 + i,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className={cn(
+                    "absolute text-4xl md:text-5xl drop-shadow-xl select-none cursor-default",
+                    i === 0 ? "top-1/4 right-[20%]" : "bottom-1/4 left-[20%]"
+                  )}
+                >
+                  {emoji}
+                </motion.span>
+              ))}
+            </>
+          )}
 
           {/* Category Label on Visual Card */}
           <div className="absolute top-6 left-6">

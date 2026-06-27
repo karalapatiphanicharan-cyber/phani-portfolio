@@ -4,19 +4,19 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Section, MaxWidthWrapper } from "@/components/layout/layout"
 import { ProjectCard } from "@/components/cards/project-card"
-import { mainProducts, studyProjects, gameProjects, aiProjects } from "@/lib/projects-data"
+import { mainProjects, studyProjects, gameProjects, aiProjects } from "@/lib/projects-data"
 import { fadeUp, staggerContainer } from "@/lib/animations"
 import { cn } from "@/lib/utils"
 
 const categories = [
-  { id: "main-products", label: "Main Products", data: mainProducts },
+  { id: "main-projects", label: "Main Projects", data: mainProjects },
   { id: "study-visualization", label: "Study & Visualization", data: studyProjects },
   { id: "games", label: "Games", data: gameProjects },
   { id: "ai-utilities", label: "AI Utilities", data: aiProjects },
 ]
 
 export function Projects() {
-  const [activeTab, setActiveTab] = React.useState("main-products")
+  const [activeTab, setActiveTab] = React.useState("main-projects")
 
   const activeCategory = categories.find(cat => cat.id === activeTab) || categories[0]
 
@@ -86,7 +86,7 @@ export function Projects() {
                 <div className="space-y-4">
                   <h3 className="text-2xl md:text-3xl font-bold">{activeCategory.label}</h3>
                   <p className="body-text max-w-2xl text-lg">
-                    {activeTab === "main-products" && "Production-ready software products built using Artificial Intelligence, Full Stack Development, scalable architecture, and modern UI/UX principles."}
+                    {activeTab === "main-projects" && "Production-ready software products built using Artificial Intelligence, Full Stack Development, scalable architecture, and modern UI/UX principles."}
                     {activeTab === "study-visualization" && "Interactive educational software and visualization tools designed to simplify complex computer science concepts through modern UI, real-time simulations, and algorithm visualization."}
                     {activeTab === "games" && "Engaging and interactive games and simulations built with modern web technologies, focusing on performance, physics-based mechanics, and user experience."}
                     {activeTab === "ai-utilities" && "Powerful AI-driven tools and utilities designed to enhance productivity, refine content, and solve specific problems using state-of-the-art language models."}

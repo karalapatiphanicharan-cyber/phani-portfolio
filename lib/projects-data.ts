@@ -15,7 +15,7 @@ export interface Project {
   };
 }
 
-export const mainProducts: Project[] = [
+export const mainProjects: Project[] = [
   {
     id: "hirelens",
     category: "AI Resume Intelligence Platform",
@@ -91,8 +91,8 @@ export const gameProjects: Project[] = [
     description: "An interactive arena where Rock, Paper, and Scissors entities battle in a physics-based environment. Features customizable entity counts, speed controls, and real-time survivor tracking.",
     technologies: ["React", "TypeScript", "Canvas API", "Tailwind CSS"],
     features: ["Physics Simulation", "Customizable Entities", "Real-time Stats", "Speed Control", "Responsive Design"],
-    liveUrl: "https://rps-arena-phi.vercel.app",
-    githubUrl: "https://github.com/karalapatiphanicharan-cyber/RPS-Arena",
+    liveUrl: "https://rps-arena-simulator.vercel.app",
+    githubUrl: "https://github.com/karalapatiphanicharan-cyber/rps-arena-simulator",
     visual: {
       gradient: "from-orange-600 via-red-500 to-amber-600",
       emojis: ["🪨", "📜", "✂️"],
@@ -107,7 +107,7 @@ export const gameProjects: Project[] = [
     description: "A challenging grid-based puzzle game where players must navigate through increasingly difficult levels, avoiding traps and solving spatial puzzles to reach the exit.",
     technologies: ["React", "TypeScript", "Tailwind CSS"],
     features: ["Multiple Levels", "Trap Mechanics", "Keyboard Controls", "Progress Saving", "Timer System"],
-    liveUrl: "https://escape-grid.vercel.app",
+    liveUrl: "https://escape-grid-ashy.vercel.app",
     githubUrl: "https://github.com/karalapatiphanicharan-cyber/EscapeGrid",
     visual: {
       gradient: "from-purple-600 via-indigo-500 to-blue-600",
@@ -126,12 +126,12 @@ export const aiProjects: Project[] = [
     description: "AI-powered content summarizer that processes articles, documents, and long-form text into structured, easy-to-read summaries using advanced NLP models.",
     technologies: ["Next.js", "TypeScript", "OpenAI API", "Tailwind CSS"],
     features: ["AI Summarization", "Text Extraction", "Multiple Formats", "History Tracking", "Export Options"],
-    liveUrl: "https://shortify-ai-kappa.vercel.app",
-    githubUrl: "https://github.com/karalapatiphanicharan-cyber/shortify-ai",
+    liveUrl: "https://shortify-ai-summarizer.vercel.app",
+    githubUrl: "https://github.com/karalapatiphanicharan-cyber/shortify-ai-summarizer",
     visual: {
-      gradient: "from-cyan-600 via-blue-500 to-indigo-600",
-      emojis: ["✂️", "🔗", "⚡"],
-      color: "cyan",
+      gradient: "from-blue-600 via-indigo-500 to-purple-600",
+      emojis: ["🤖", "📄", "✨"],
+      color: "blue",
     },
   },
   {
@@ -142,8 +142,8 @@ export const aiProjects: Project[] = [
     description: "Advanced text refiner that adjusts the tone, flow, and vocabulary of AI-generated content to make it indistinguishable from human writing while maintaining the original intent.",
     technologies: ["React", "TypeScript", "Gemini AI", "Tailwind CSS"],
     features: ["Tone Adjustment", "Flow Optimization", "Plagiarism Check", "Multiple Style Modes", "Real-time Refinement"],
-    liveUrl: "https://human-text-delta.vercel.app",
-    githubUrl: "https://github.com/karalapatiphanicharan-cyber/humantext",
+    liveUrl: "https://human-text-three.vercel.app",
+    githubUrl: "https://github.com/karalapatiphanicharan-cyber/HumanText",
     visual: {
       gradient: "from-emerald-500 via-teal-500 to-cyan-600",
       emojis: ["✍️", "🤖", "✨"],
