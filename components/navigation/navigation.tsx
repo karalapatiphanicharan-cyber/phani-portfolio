@@ -114,7 +114,12 @@ export function Navigation() {
             ))}
           </div>
           <Button variant="primary" size="sm" className="rounded-full px-6" asChild>
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a
+              href="/resume/PhaniCharanResume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
               Resume
             </a>
           </Button>
@@ -154,7 +159,12 @@ export function Navigation() {
                  </a>
                ))}
                <Button className="w-full rounded-full" asChild>
-                 <a href="#" target="_blank" rel="noopener noreferrer">
+                 <a
+                   href="/resume/PhaniCharanResume.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   download
+                 >
                    Resume
                  </a>
                </Button>

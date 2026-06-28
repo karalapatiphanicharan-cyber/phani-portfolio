@@ -92,7 +92,12 @@ export function Contact() {
                     </div>
 
                     <Button variant="primary" className="w-full sm:w-auto gap-2 rounded-full px-8" asChild>
-                      <a href="#" target="_blank" rel="noopener noreferrer">
+                      <a
+                        href="/resume/PhaniCharanResume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                      >
                         <FileText className="w-4 h-4" />
                         Download Resume
                       </a>
