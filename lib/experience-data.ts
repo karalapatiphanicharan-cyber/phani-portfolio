@@ -73,22 +73,22 @@ export const certifications: Certification[] = [
 
 export const achievements: Achievement[] = [
   {
-    value: 170,
+    value: 200,
     label: "LeetCode Problems Solved",
     suffix: "+",
   },
   {
-    value: 700,
-    label: "GitHub Contributions",
+    value: 25,
+    label: "GitHub Repositories",
     suffix: "+",
   },
   {
-    value: 11,
+    value: 15,
     label: "Software Products Built",
     suffix: "+",
   },
   {
-    value: 4,
+    value: 5,
     label: "Professional Certifications",
     suffix: "+",
   },
