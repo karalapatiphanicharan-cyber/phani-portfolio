@@ -414,6 +414,100 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 CHURN RISK: HIGH
               </motion.div>
             </div>
+          ) : project.id === "vertexflow" ? (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              {/* Grid Background */}
+              <div className="absolute inset-0 opacity-10"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+                  backgroundSize: "40px 40px"
+                }}
+              />
+
+              {/* Network Topology SVGs */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                {/* Edges with gradients */}
+                <defs>
+                  <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="rgba(59, 130, 246, 0.2)" />
+                    <stop offset="100%" stopColor="rgba(139, 92, 246, 0.2)" />
+                  </linearGradient>
+                </defs>
+
+                {/* Connections */}
+                <g stroke="url(#edgeGradient)" strokeWidth="0.5">
+                  <line x1="20" y1="30" x2="50" y2="20" />
+                  <line x1="20" y1="30" x2="35" y2="60" />
+                  <line x1="50" y1="20" x2="80" y2="40" />
+                  <line x1="35" y1="60" x2="65" y2="75" />
+                  <line x1="80" y1="40" x2="65" y2="75" />
+                  <line x1="50" y1="20" x2="65" y2="75" />
+                  <line x1="20" y1="30" x2="65" y2="75" />
+                </g>
+
+                {/* Animated Path */}
+                <motion.path
+                  d="M20,30 L50,20 L80,40 L65,75"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeDasharray="4 4"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                />
+              </svg>
+
+              {/* Glowing Nodes */}
+              <div className="absolute inset-0">
+                {[
+                  { x: 20, y: 30, color: "blue" },
+                  { x: 50, y: 20, color: "indigo" },
+                  { x: 80, y: 40, color: "purple" },
+                  { x: 35, y: 60, color: "blue" },
+                  { x: 65, y: 75, color: "indigo" }
+                ].map((node, i) => (
+                  <motion.div
+                    key={`node-${i}`}
+                    style={{ left: `${node.x}%`, top: `${node.y}%` }}
+                    animate={{
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{ duration: 3, delay: i * 0.5, repeat: Infinity }}
+                    className="absolute -ml-2.5 -mt-2.5 w-5 h-5 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                  >
+                    <div className={cn(
+                      "w-2 h-2 rounded-full shadow-[0_0_8px_currentColor]",
+                      node.color === "blue" ? "bg-blue-400 text-blue-400" :
+                      node.color === "indigo" ? "bg-indigo-400 text-indigo-400" : "bg-purple-400 text-purple-400"
+                    )} />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Floating UI Elements */}
+              <motion.div
+                animate={{ x: [0, 10, 0], y: [0, -5, 0] }}
+                transition={{ duration: 6, repeat: Infinity }}
+                className="absolute top-12 left-12 p-3 rounded-xl bg-black/20 backdrop-blur-xl border border-white/10 flex flex-col gap-2"
+              >
+                <div className="flex gap-1">
+                  <div className="w-8 h-1.5 bg-blue-500/50 rounded-full" />
+                  <div className="w-4 h-1.5 bg-white/20 rounded-full" />
+                </div>
+                <div className="w-12 h-1.5 bg-white/10 rounded-full" />
+              </motion.div>
+
+              <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute bottom-16 right-16 p-4 rounded-2xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl"
+              >
+                <div className="text-[10px] font-bold text-white/40 tracking-widest mb-1">ALGORITHM</div>
+                <div className="text-sm font-bold text-white">Dijkstra&apos;s</div>
+              </motion.div>
+            </div>
           ) : (
             <>
               {/* Main Emoji */}
