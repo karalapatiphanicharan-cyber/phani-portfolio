@@ -6,7 +6,7 @@ import { Button } from "@/components/buttons/button"
 import { Badge } from "@/components/ui/badge"
 import { Section, MaxWidthWrapper, Container } from "@/components/layout/layout"
 import { fadeUp, blurReveal, staggerContainer } from "@/lib/animations"
-import { GitHubIcon, LinkedInIcon, LeetCodeIcon } from "@/components/ui/icons"
+import { GitHubIcon, LinkedInIcon, LeetCodeIcon, InstagramIcon } from "@/components/ui/icons"
 
 const socialLinks = [
   {
@@ -28,6 +28,11 @@ const socialLinks = [
     name: "Email",
     icon: Mail,
     href: "mailto:karalapatiphanicharan@gmail.com",
+  },
+  {
+    name: "Instagram",
+    icon: InstagramIcon,
+    href: "https://www.instagram.com/phani_charan01/?hl=en",
   },
 ]
 
@@ -117,9 +122,16 @@ export function Hero() {
                   View Projects
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Button variant="outline" size="lg" className="rounded-full border-white/10 hover:bg-white/5 px-8">
-                  <Download className="mr-2 w-4 h-4" />
-                  Download Resume
+                <Button variant="outline" size="lg" className="rounded-full border-white/10 hover:bg-white/5 px-8" asChild>
+                  <a
+                    href="/resume/PhaniCharanResume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                  >
+                    <Download className="mr-2 w-4 h-4" />
+                    Download Resume
+                  </a>
                 </Button>
               </motion.div>
 
