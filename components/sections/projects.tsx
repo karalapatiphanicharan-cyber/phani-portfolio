@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Section, MaxWidthWrapper } from "@/components/layout/layout"
 import { ProjectCard } from "@/components/cards/project-card"
-import { mainProjects, studyProjects, gameProjects, aiProjects } from "@/lib/projects-data"
+import { mainProjects, studyProjects, gameProjects, aiProjects, mlProjects } from "@/lib/projects-data"
 import { fadeUp, staggerContainer } from "@/lib/animations"
 import { cn } from "@/lib/utils"
 
@@ -13,6 +13,7 @@ const categories = [
   { id: "study-visualization", label: "Study & Visualization", data: studyProjects },
   { id: "games", label: "Games", data: gameProjects },
   { id: "ai-utilities", label: "AI Utilities", data: aiProjects },
+  { id: "ml-projects", label: "ML Projects", data: mlProjects },
 ]
 
 export function Projects() {
@@ -90,6 +91,7 @@ export function Projects() {
                     {activeTab === "study-visualization" && "Interactive educational software and visualization tools designed to simplify complex computer science concepts through modern UI, real-time simulations, and algorithm visualization."}
                     {activeTab === "games" && "Engaging and interactive games and simulations built with modern web technologies, focusing on performance, physics-based mechanics, and user experience."}
                     {activeTab === "ai-utilities" && "Powerful AI-driven tools and utilities designed to enhance productivity, refine content, and solve specific problems using state-of-the-art language models."}
+                    {activeTab === "ml-projects" && "Production-ready machine learning applications featuring advanced NLP, predictive analytics, and explainable AI models integrated with modern web dashboards."}
                   </p>
                 </div>
 

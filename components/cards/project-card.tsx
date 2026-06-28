@@ -127,7 +127,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             className="absolute bottom-1/4 right-1/4 w-28 h-28 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full"
           />
 
-          {/* Custom Illustration for Shortify AI */}
+          {/* Custom Illustrations */}
           {project.id === "shortify-ai" ? (
             <div className="relative w-full h-full flex items-center justify-center p-8">
               {/* AI Core (Centerpiece) */}
@@ -254,6 +254,166 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 </motion.div>
               ))}
             </div>
+          ) : project.id === "ai-knowledge-assistant" ? (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              {/* Document/Knowledge Core */}
+              <motion.div
+                animate={{
+                  y: [0, -10, 0],
+                  boxShadow: ["0 0 20px rgba(99,102,241,0.2)", "0 0 40px rgba(99,102,241,0.4)", "0 0 20px rgba(99,102,241,0.2)"]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-30 w-32 h-40 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl flex flex-col p-4 space-y-3"
+              >
+                <div className="w-1/2 h-2 bg-indigo-400/50 rounded-full" />
+                <div className="w-full h-1.5 bg-white/20 rounded-full" />
+                <div className="w-full h-1.5 bg-white/20 rounded-full" />
+                <div className="w-3/4 h-1.5 bg-white/20 rounded-full" />
+                <div className="w-full h-1.5 bg-white/20 rounded-full" />
+                <div className="flex-1" />
+                <div className="flex justify-between items-center">
+                  <div className="w-8 h-1.5 bg-indigo-400/30 rounded-full" />
+                  <span className="text-xl">🤖</span>
+                </div>
+              </motion.div>
+
+              {/* Vector Nodes */}
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={`node-${i}`}
+                  animate={{
+                    x: [0, Math.cos(i * 72) * 100, 0],
+                    y: [0, Math.sin(i * 72) * 100, 0],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{ duration: 6 + i, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute w-4 h-4 bg-indigo-400/40 rounded-full border border-white/30 backdrop-blur-sm"
+                />
+              ))}
+
+              {/* Connection Lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" viewBox="0 0 100 100">
+                <motion.circle cx="50" cy="50" r="40" fill="none" stroke="white" strokeWidth="0.2" strokeDasharray="4 4" animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
+              </svg>
+            </div>
+          ) : project.id === "expense-tracker" ? (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              {/* Wallet/Card Core */}
+              <motion.div
+                whileHover={{ rotateY: 180 }}
+                transition={{ duration: 0.8 }}
+                className="relative z-30 w-48 h-32 bg-gradient-to-br from-emerald-500/40 to-teal-600/40 backdrop-blur-xl border border-white/30 rounded-2xl shadow-2xl flex flex-col p-5 justify-between"
+              >
+                <div className="flex justify-between items-start">
+                  <div className="w-10 h-8 bg-amber-400/60 rounded-md" />
+                  <span className="text-2xl">💳</span>
+                </div>
+                <div className="space-y-2">
+                  <div className="w-full h-1.5 bg-white/20 rounded-full" />
+                  <div className="w-2/3 h-1.5 bg-white/20 rounded-full" />
+                </div>
+              </motion.div>
+
+              {/* Rising Charts */}
+              <div className="absolute bottom-12 right-12 flex items-end gap-1.5">
+                {[40, 70, 50, 90, 60].map((h, i) => (
+                  <motion.div
+                    key={`bar-${i}`}
+                    initial={{ height: 0 }}
+                    animate={{ height: h }}
+                    transition={{ duration: 1, delay: i * 0.1, repeat: Infinity, repeatType: "reverse" }}
+                    className="w-3 bg-emerald-400/40 rounded-t-sm border-t border-white/20"
+                  />
+                ))}
+              </div>
+
+              {/* Floating Money Icons */}
+              <motion.div
+                animate={{ y: [0, -20, 0], opacity: [0, 1, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute top-12 left-16 text-3xl"
+              >
+                💰
+              </motion.div>
+            </div>
+          ) : project.id === "fake-news-detection-ml" ? (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              {/* Newspaper/Article Element */}
+              <motion.div
+                animate={{ rotate: [-2, 2, -2] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="relative z-30 w-40 h-52 bg-white/10 backdrop-blur-xl border border-white/20 rounded-sm p-4 space-y-3"
+              >
+                <div className="w-full h-4 bg-white/30 rounded-sm" />
+                <div className="w-full h-1 bg-white/10 rounded-full" />
+                <div className="w-full h-1 bg-white/10 rounded-full" />
+                <div className="w-3/4 h-1 bg-white/10 rounded-full" />
+                <div className="w-full h-20 bg-blue-500/20 rounded-md border border-white/10 flex items-center justify-center">
+                   <span className="text-3xl">📰</span>
+                </div>
+                <div className="w-full h-1 bg-white/10 rounded-full" />
+                <div className="w-full h-1 bg-white/10 rounded-full" />
+              </motion.div>
+
+              {/* AI Verification Scanner */}
+              <motion.div
+                animate={{ y: [-100, 100, -100] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                className="absolute z-40 w-52 h-1 bg-blue-400/60 shadow-[0_0_15px_rgba(96,165,250,0.8)]"
+              />
+
+              {/* Confidence Meter */}
+              <div className="absolute top-12 right-12 w-20 h-20 rounded-full border-4 border-white/10 flex items-center justify-center">
+                 <motion.div
+                   animate={{ rotate: [0, 270, 0] }}
+                   transition={{ duration: 5, repeat: Infinity }}
+                   className="w-1 h-8 bg-blue-400 origin-bottom rounded-full"
+                   style={{ bottom: "50%" }}
+                 />
+                 <span className="absolute bottom-2 text-[10px] font-bold">ML SCORE</span>
+              </div>
+            </div>
+          ) : project.id === "customer-churn-prediction" ? (
+            <div className="relative w-full h-full flex items-center justify-center p-8">
+              {/* Customer Analytics Grid */}
+              <div className="grid grid-cols-3 gap-4 relative z-30">
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={`user-${i}`}
+                    animate={{
+                      scale: i === 1 || i === 4 ? [1, 1.1, 1] : 1,
+                      backgroundColor: i === 1 || i === 4 ? "rgba(139, 92, 246, 0.3)" : "rgba(255, 255, 255, 0.1)"
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center"
+                  >
+                    <span className="text-xl">{i === 1 || i === 4 ? "⚠️" : "👤"}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Predictive Graph Overlay */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                <motion.path
+                  d="M10,80 L30,60 L50,85 L70,40 L90,20"
+                  fill="none"
+                  stroke="rgba(139, 92, 246, 0.5)"
+                  strokeWidth="2"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+              </svg>
+
+              {/* Status Badge */}
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute top-12 right-12 bg-purple-500/40 backdrop-blur-md border border-white/30 px-3 py-1 rounded-full text-[10px] font-bold"
+              >
+                CHURN RISK: HIGH
+              </motion.div>
+            </div>
           ) : (
             <>
               {/* Main Emoji */}
@@ -354,15 +514,17 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 pt-6">
-          <Button
-            variant="primary"
-            className="flex-1 rounded-xl h-14 text-base font-semibold gap-2 shadow-lg"
-            asChild
-          >
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              Live Demo <ExternalLink className="w-4 h-4" />
-            </a>
-          </Button>
+          {project.liveUrl && (
+            <Button
+              variant="primary"
+              className="flex-1 rounded-xl h-14 text-base font-semibold gap-2 shadow-lg"
+              asChild
+            >
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                Live Demo <ExternalLink className="w-4 h-4" />
+              </a>
+            </Button>
+          )}
           <Button
             variant="outline"
             className="flex-1 rounded-xl h-14 text-base font-semibold gap-2 bg-white/5 border-white/10 hover:bg-white/10 transition-all"
