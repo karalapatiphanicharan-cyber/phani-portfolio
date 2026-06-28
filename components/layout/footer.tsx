@@ -50,7 +50,7 @@ const LeetCodeIcon = ({ className }: { className?: string }) => (
 )
 
 const quickLinks = [
-  { label: "Home", href: "#hero" },
+  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
@@ -88,11 +88,22 @@ export function Footer() {
     e.preventDefault()
     const targetId = href.replace("#", "")
     const elem = document.getElementById(targetId)
-    elem?.scrollIntoView({ behavior: "smooth" })
+    if (elem) {
+      const offset = 80 // Navbar height offset
+      const bodyRect = document.body.getBoundingClientRect().top
+      const elementRect = elem.getBoundingClientRect().top
+      const elementPosition = elementRect - bodyRect
+      const offsetPosition = elementPosition - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
+    }
   }
 
   return (
-    <footer className="bg-background py-12 md:py-20 relative overflow-hidden">
+    <footer id="footer" className="bg-background py-12 md:py-20 relative overflow-hidden">
       {/* Decorative background element */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
@@ -103,8 +114,8 @@ export function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-5 lg:col-span-6 space-y-6">
             <Link
-              href="#hero"
-              onClick={(e) => handleScroll(e, "#hero")}
+              href="#home"
+              onClick={(e) => handleScroll(e, "#home")}
               className="text-2xl font-heading font-bold tracking-tighter inline-block hover:opacity-80 transition-opacity"
             >
               KSP<span className="text-primary">C</span>

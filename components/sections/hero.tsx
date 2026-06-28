@@ -75,7 +75,7 @@ const socialLinks = [
 
 export function Hero() {
   return (
-    <Section className="relative pt-32 md:pt-48 pb-20 md:pb-32 overflow-hidden">
+    <Section id="home" className="relative pt-32 md:pt-48 pb-20 md:pb-32 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px] animate-pulse" />

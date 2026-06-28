@@ -35,7 +35,7 @@ const metrics = [
 
 export function Metrics() {
   return (
-    <Section className="py-20 bg-background/50 relative">
+    <Section id="metrics" className="py-20 bg-background/50 relative">
       <MaxWidthWrapper>
         <motion.div
           variants={staggerContainer}
