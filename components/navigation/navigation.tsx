@@ -11,7 +11,9 @@ import { Button } from "@/components/buttons/button"
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ]
 
@@ -43,7 +45,7 @@ export function Navigation() {
 
     const observer = new IntersectionObserver(observerCallback, observerOptions)
 
-    const sections = ["home", "about", "projects", "contact"]
+    const sections = ["home", "about", "skills", "projects", "experience", "contact"]
     sections.forEach((id) => {
       const section = document.getElementById(id)
       if (section) observer.observe(section)
@@ -75,7 +77,7 @@ export function Navigation() {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "bg-background/80 backdrop-blur-md border-b border-border py-3" : "bg-transparent py-5"
+        scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border py-3" : "bg-transparent py-5"
       )}
     >
       <MaxWidthWrapper className="flex items-center justify-between">
@@ -96,7 +98,7 @@ export function Navigation() {
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
                 className={cn(
-                  "relative text-sm font-medium transition-colors hover:text-foreground py-1",
+                  "relative text-sm font-medium transition-all duration-300 hover:text-foreground py-1",
                   activeSection === item.href.replace("#", "") ? "text-foreground" : "text-muted-foreground"
                 )}
               >
@@ -104,7 +106,7 @@ export function Navigation() {
                 {activeSection === item.href.replace("#", "") && (
                   <motion.div
                     layoutId="navUnderline"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
