@@ -55,9 +55,9 @@ export function Metrics() {
                     <span>{metric.suffix}</span>
                   </div>
                   <div className="space-y-2">
-                    <h3 className="font-heading font-bold text-lg text-foreground">
+                    <p className="font-heading font-bold text-lg text-foreground">
                       {metric.title}
-                    </h3>
+                    </p>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {metric.description}
                     </p>

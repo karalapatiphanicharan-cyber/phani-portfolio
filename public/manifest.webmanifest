@@ -1,0 +1,16 @@
+{
+  "name": "K. Sri Phani Charan Portfolio",
+  "short_name": "KSPC Portfolio",
+  "description": "Portfolio of K. Sri Phani Charan, Software Developer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030712",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

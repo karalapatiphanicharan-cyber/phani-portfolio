@@ -9,7 +9,10 @@ export const GitHubIcon = ({ className }: { className?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
+    role="img"
+    aria-label="GitHub"
   >
+    <title>GitHub</title>
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
     <path d="M9 18c-4.51 2-5-2-7-2" />
   </svg>
@@ -24,7 +27,10 @@ export const LinkedInIcon = ({ className }: { className?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
+    role="img"
+    aria-label="LinkedIn"
   >
+    <title>LinkedIn</title>
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
     <rect width="4" height="12" x="2" y="9" />
     <circle cx="4" cy="4" r="2" />
@@ -36,7 +42,10 @@ export const LeetCodeIcon = ({ className }: { className?: string }) => (
     viewBox="0 0 24 24"
     fill="currentColor"
     className={className}
+    role="img"
+    aria-label="LeetCode"
   >
+    <title>LeetCode</title>
     <path d="M13.483 0a1.374 1.374 0 0 0-.961.414l-9.88 9.88a1.374 1.374 0 0 0 0 1.94l6.058 6.057a1.374 1.374 0 0 0 1.94 0l5.692-5.692a1.374 1.374 0 0 0 0-1.94l-6.058-6.058a1.374 1.374 0 0 0-1.94 0l-5.692 5.692a1.374 1.374 0 0 1-1.94 0l9.88-9.88A1.374 1.374 0 0 0 13.483 0z" />
     <path d="m20.947 14.407-3.996 3.996a1.374 1.374 0 0 0 0 1.94l6.058 6.058a1.374 1.374 0 0 0 1.94 0l3.996-3.996a1.374 1.374 0 0 0 0-1.94l-6.058-6.058a1.374 1.374 0 0 0-1.94 0z" />
   </svg>
@@ -51,7 +60,10 @@ export const InstagramIcon = ({ className }: { className?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
+    role="img"
+    aria-label="Instagram"
   >
+    <title>Instagram</title>
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />

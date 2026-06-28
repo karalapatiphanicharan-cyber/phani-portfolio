@@ -78,7 +78,7 @@ export function Contact() {
                         <User className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-heading font-bold">K. Sri Phani Charan</h3>
+                        <p className="text-xl font-heading font-bold text-foreground">K. Sri Phani Charan</p>
                         <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
                           <Briefcase className="w-4 h-4" />
                           Software Developer • Full-Stack Developer • AI Enthusiast
