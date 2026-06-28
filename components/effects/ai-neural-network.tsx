@@ -1,321 +1,294 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+"use client"
+
+import React, { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 interface Node {
-  id: number;
-  x: number;
-  y: number;
-  isCenter?: boolean;
-  label?: string;
-  desc?: string;
+  id: number
+  x: number
+  y: number
+  size: number
 }
 
 interface Connection {
-  from: number;
-  to: number;
+  from: number
+  to: number
 }
 
-const techData = [
-  { name: "AI", desc: "Artificial Intelligence" },
-  { name: "Python", desc: "Backend • AI" },
-  { name: "React", desc: "Frontend Development" },
-  { name: "Next.js", desc: "Full-Stack Framework" },
-  { name: "TypeScript", desc: "Type-Safe Development" },
-  { name: "FastAPI", desc: "REST APIs" },
-  { name: "Machine Learning", desc: "Predictive Models" },
-  { name: "TensorFlow", desc: "Deep Learning" },
-  { name: "Graph Algorithms", desc: "Visualization" },
-  { name: "DSA", desc: "Problem Solving" },
-];
+interface TechChip {
+  id: string
+  label: string
+  icon: string
+  x: number
+  y: number
+  delay: number
+  mobileHidden?: boolean
+}
 
-export const AINeuralNetwork: React.FC = () => {
-  const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+// Deterministic nodes for a premium, stable feel
+const FIXED_NODES: Node[] = [
+  { id: 0, x: 50, y: 50, size: 12 }, // Center Node
+  { id: 1, x: 20, y: 25, size: 6 },
+  { id: 2, x: 80, y: 30, size: 6 },
+  { id: 3, x: 25, y: 75, size: 5 },
+  { id: 4, x: 75, y: 70, size: 7 },
+  { id: 5, x: 50, y: 10, size: 5 },
+  { id: 6, x: 10, y: 50, size: 5 },
+  { id: 7, x: 90, y: 50, size: 6 },
+  { id: 8, x: 50, y: 90, size: 5 },
+  { id: 9, x: 15, y: 10, size: 4 },
+  { id: 10, x: 85, y: 90, size: 4 },
+  { id: 11, x: 5, y: 30, size: 4 },
+  { id: 12, x: 95, y: 20, size: 5 },
+  { id: 13, x: 35, y: 40, size: 7 },
+  { id: 14, x: 65, y: 45, size: 7 },
+]
 
-  // Mouse parallax
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-  const translateX = useTransform(springX, [-0.5, 0.5], [-20, 20]);
-  const translateY = useTransform(springY, [-0.5, 0.5], [-20, 20]);
+const FIXED_CONNECTIONS: Connection[] = [
+  { from: 0, to: 13 }, { from: 0, to: 14 }, { from: 0, to: 8 },
+  { from: 13, to: 1 }, { from: 13, to: 6 }, { from: 13, to: 3 },
+  { from: 14, to: 2 }, { from: 14, to: 7 }, { from: 14, to: 4 },
+  { from: 1, to: 5 }, { from: 1, to: 9 }, { from: 2, to: 12 },
+  { from: 6, to: 11 }, { from: 4, to: 10 }, { from: 7, to: 12 },
+  { from: 5, to: 2 }, { from: 3, to: 8 }, { from: 6, to: 3 }
+]
+
+// Spread chips widely to prevent overlap and strictly limit count (8 desktop, 6 mobile)
+const TECH_CHIPS: TechChip[] = [
+  { id: "ai", label: "AI", icon: "🤖", x: 10, y: 15, delay: 0 },
+  { id: "react", label: "React", icon: "⚛", x: 88, y: 15, delay: 1 },
+  { id: "nextjs", label: "Next.js", icon: "▲", x: 15, y: 85, delay: 2 },
+  { id: "typescript", label: "TypeScript", icon: "🧩", x: 92, y: 50, delay: 3 },
+  { id: "python", label: "Python", icon: "🐍", x: 85, y: 85, delay: 4 },
+  { id: "fastapi", label: "FastAPI", icon: "⚡", x: 60, y: 8, delay: 5, mobileHidden: true },
+  { id: "ml", label: "ML", icon: "🧠", x: 40, y: 92, delay: 6, mobileHidden: true },
+  { id: "dsa", label: "DSA", icon: "💻", x: 8, y: 50, delay: 9 },
+  { id: "tensorflow", label: "TensorFlow", icon: "🔥", x: 80, y: 35, delay: 7, mobileHidden: true },
+  { id: "graph", label: "Graph Algorithms", icon: "🕸", x: 20, y: 65, delay: 8, mobileHidden: true },
+]
+
+const TOOLTIPS: Record<number, { title: string; desc: string }> = {
+  0: { title: "AI Core", desc: "Central Intelligence System" },
+  13: { title: "Neural Layer", desc: "Feature Extraction" },
+  14: { title: "Logic Gate", desc: "Decision Making" },
+  1: { title: "Vision", desc: "Image Processing" },
+  2: { title: "NLP", desc: "Language Understanding" },
+  4: { title: "Optimizer", desc: "Gradient Descent" },
+  7: { title: "Classifier", desc: "Data Sorting" },
+}
+
+const CHIP_TOOLTIPS: Record<string, { title: string; desc: string }> = {
+  ai: { title: "AI", desc: "Artificial Intelligence" },
+  react: { title: "React", desc: "Frontend Development" },
+  nextjs: { title: "Next.js", desc: "Full-Stack Framework" },
+  typescript: { title: "TypeScript", desc: "Type-Safe Development" },
+  python: { title: "Python", desc: "Backend • AI" },
+  fastapi: { title: "FastAPI", desc: "REST APIs" },
+  ml: { title: "Machine Learning", desc: "Predictive Models" },
+  dsa: { title: "DSA", desc: "Data Structures" },
+  tensorflow: { title: "TensorFlow", desc: "Deep Learning" },
+  graph: { title: "Graph Algorithms", desc: "Visualization" },
+}
+
+export function AINeuralNetwork() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [hoveredNode, setHoveredNode] = useState<number | null>(null)
+  const [hoveredChip, setHoveredChip] = useState<string | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [mouseX, mouseY]);
-
-  const { nodes, connections } = useMemo(() => {
-    const nodes: Node[] = [];
-    const numNodes = 15;
-
-    // Center node
-    nodes.push({
-      id: 0,
-      x: 50,
-      y: 50,
-      isCenter: true,
-      label: techData[0].name,
-      desc: techData[0].desc
-    });
-
-    // Create other nodes in concentric rings
-    for (let i = 1; i < numNodes; i++) {
-      const ring = i <= 6 ? 0 : 1;
-      const ringNodes = ring === 0 ? 6 : 8;
-      const indexInRing = ring === 0 ? i - 1 : i - 7;
-
-      const angle = (indexInRing / ringNodes) * Math.PI * 2;
-      const radius = ring === 0 ? 22 : 38;
-      const x = 50 + Math.cos(angle) * radius + (Math.random() - 0.5) * 4;
-      const y = 50 + Math.sin(angle) * radius + (Math.random() - 0.5) * 4;
-
-      nodes.push({
-        id: i,
-        x,
-        y,
-        label: i < techData.length ? techData[i].name : undefined,
-        desc: i < techData.length ? techData[i].desc : undefined
-      });
+      if (!containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      const x = (e.clientX - rect.left) / rect.width - 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5
+      setMousePos({ x, y })
     }
-
-    const connections: Connection[] = [];
-    nodes.forEach((node, i) => {
-      if (i !== 0) {
-        // Connect to center if in first ring
-        if (i <= 6) {
-          connections.push({ from: 0, to: i });
-        }
-      }
-
-      // Connect to neighbors
-      const neighbors = nodes
-        .map((other, j) => ({ index: j, dist: Math.hypot(node.x - other.x, node.y - other.y) }))
-        .filter(d => d.index !== i && d.index !== 0)
-        .sort((a, b) => a.dist - b.dist);
-
-      neighbors.slice(0, 1).forEach(n => {
-        if (!connections.some(c => (c.from === i && c.to === n.index) || (c.from === n.index && c.to === i))) {
-          connections.push({ from: i, to: n.index });
-        }
-      });
-    });
-
-    return { nodes, connections };
-  }, []);
-
-  const visibleChips = isMobile ? techData.slice(0, 6) : techData.slice(0, 8);
-
-  const getChipStyle = (index: number) => {
-    const positions = [
-      { left: '5%', top: '20%' },
-      { left: '75%', top: '15%' },
-      { left: '10%', top: '75%' },
-      { left: '80%', top: '80%' },
-      { left: '45%', top: '5%' },
-      { left: '50%', top: '92%' },
-      { left: '2%', top: '50%' },
-      { left: '88%', top: '50%' },
-    ];
-    return positions[index % positions.length];
-  };
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-[550px] aspect-square flex items-center justify-center">
+    <div ref={containerRef} className="relative w-full h-full group perspective-1000">
+      {/* Mouse Parallax Wrapper */}
       <motion.div
-        style={{ x: translateX, y: translateY }}
-        className="relative w-full h-full flex items-center justify-center"
+        animate={{
+          x: mousePos.x * 20,
+          y: mousePos.y * 20,
+          rotateX: mousePos.y * -5,
+          rotateY: mousePos.x * 5,
+        }}
+        transition={{ type: "spring", stiffness: 100, damping: 30 }}
+        className="absolute inset-0 w-full h-full"
       >
-        {/* Connection Lines & Particles */}
-        <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full overflow-visible pointer-events-none">
+        <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible drop-shadow-2xl">
           <defs>
-            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="1" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            <radialGradient id="centerGlow">
+              <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.6" />
+              <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+            </radialGradient>
+
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="0.5" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
             </filter>
           </defs>
 
-          {connections.map((conn, idx) => {
-            const from = nodes[conn.from];
-            const to = nodes[conn.to];
-            const pathD = `M ${from.x} ${from.y} L ${to.x} ${to.y}`;
-
+          {/* Connection Lines */}
+          {FIXED_CONNECTIONS.map((conn, i) => {
+            const from = FIXED_NODES.find(n => n.id === conn.from)!
+            const to = FIXED_NODES.find(n => n.id === conn.to)!
             return (
-              <g key={`group-${idx}`}>
-                <motion.path
-                  d={pathD}
-                  stroke="rgba(59, 130, 246, 0.15)"
-                  strokeWidth="0.5"
+              <g key={`conn-${i}`}>
+                <motion.line
+                  x1={from.x} y1={from.y} x2={to.x} y2={to.y}
+                  stroke="currentColor"
+                  className="text-primary/20"
+                  strokeWidth="0.4"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 1.5, delay: idx * 0.05 }}
+                  transition={{ duration: 1.5, delay: i * 0.05 }}
                 />
 
-                {/* Data flow particles */}
+                {/* Data Flow Particles */}
                 <motion.circle
-                  r="0.6"
+                  r="0.5"
                   fill="#3B82F6"
                   filter="url(#glow)"
-                  initial={{ offsetDistance: "0%", opacity: 0 }}
-                  animate={{
-                    offsetDistance: "100%",
-                    opacity: [0, 1, 1, 0]
-                  }}
-                  transition={{
-                    duration: 4 + Math.random() * 4,
-                    repeat: Infinity,
-                    delay: Math.random() * 5,
-                    ease: "linear"
-                  }}
-                  style={{ offsetPath: `path("${pathD}")` }}
-                />
+                >
+                  <animateMotion
+                    dur={`${4 + (i % 4)}s`}
+                    repeatCount="indefinite"
+                    path={`M ${from.x} ${from.y} L ${to.x} ${to.y}`}
+                  />
+                </motion.circle>
               </g>
-            );
+            )
           })}
 
-          {/* Central Pulse */}
-          {connections.filter(c => c.from === 0 || c.to === 0).map((conn, idx) => {
-            const from = nodes[conn.from];
-            const to = nodes[conn.to];
-            const start = from.id === 0 ? from : to;
-            const end = from.id === 0 ? to : from;
-            const pathD = `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
+          {/* Nodes */}
+          {FIXED_NODES.map((node) => (
+            <g key={node.id} onMouseEnter={() => setHoveredNode(node.id)} onMouseLeave={() => setHoveredNode(null)}>
+              {/* Glow Effect for Center Node */}
+              {node.id === 0 && (
+                <motion.circle
+                  cx={node.x} cy={node.y} r={node.size * 1.8}
+                  fill="url(#centerGlow)"
+                  animate={{
+                    opacity: [0.4, 0.7, 0.4],
+                    scale: [1, 1.15, 1]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                />
+              )}
 
-            return (
               <motion.circle
-                key={`pulse-${idx}`}
-                r="0.8"
-                fill="#8B5CF6"
-                filter="url(#glow)"
-                initial={{ opacity: 0, offsetDistance: "0%" }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  offsetDistance: "100%"
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  repeatDelay: 3,
-                  delay: idx * 0.3,
-                  ease: "easeInOut"
-                }}
-                style={{ offsetPath: `path("${pathD}")` }}
+                cx={node.x} cy={node.y}
+                r={node.size / 4}
+                fill={node.id === 0 ? "#3B82F6" : hoveredNode === node.id ? "#8B5CF6" : "#111827"}
+                stroke={node.id === 0 ? "#8B5CF6" : "#3B82F6"}
+                strokeWidth="0.6"
+                className="cursor-pointer transition-colors duration-300"
+                whileHover={{ scale: 1.3, strokeWidth: 1.2, fill: "#3B82F6" }}
               />
-            );
-          })}
+
+              {/* Pulsing Core Animation */}
+              {node.id === 0 && (
+                <motion.circle
+                  cx={node.x} cy={node.y} r={node.size / 4}
+                  fill="transparent"
+                  stroke="#3B82F6"
+                  strokeWidth="0.3"
+                  animate={{ scale: [1, 2.5], opacity: [0.6, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeOut", repeatDelay: 2 }}
+                />
+              )}
+            </g>
+          ))}
         </svg>
 
-        {/* Nodes */}
-        {nodes.map((node) => (
-          <motion.div
-            key={node.id}
-            className="absolute z-10 cursor-pointer"
-            style={{
-              left: `${node.x}%`,
-              top: `${node.y}%`,
-              transform: 'translate(-50%, -50%)',
-            }}
-            onMouseEnter={() => setHoveredNode(node)}
-            onMouseLeave={() => setHoveredNode(null)}
-            whileHover={{ scale: 1.4 }}
-          >
-            {node.isCenter && (
+        {/* Floating Tech Chips */}
+        <AnimatePresence>
+          {TECH_CHIPS.map((chip) => (
+            <motion.div
+              key={chip.id}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              style={{
+                position: "absolute",
+                left: `${chip.x}%`,
+                top: `${chip.y}%`,
+                transform: "translate(-50%, -50%)"
+              }}
+              className={cn(chip.mobileHidden && "hidden md:block")}
+            >
               <motion.div
-                className="absolute inset-0 rounded-full bg-blue-500/20 blur-xl"
                 animate={{
-                  scale: [1, 1.8, 1],
-                  opacity: [0.3, 0.7, 0.3],
+                  y: [0, -10, 0],
+                  rotate: [0, 2, 0, -2, 0]
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 5 + chip.delay,
+                  delay: chip.delay,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: "easeInOut"
                 }}
-              />
-            )}
+                onMouseEnter={() => setHoveredChip(chip.id)}
+                onMouseLeave={() => setHoveredChip(null)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-white/10 bg-surface/40 backdrop-blur-md shadow-xl hover:border-primary/50 transition-all duration-300 group cursor-default whitespace-nowrap"
+              >
+                <span className="text-sm filter drop-shadow-sm">{chip.icon}</span>
+                <span className="text-[10px] font-bold text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">{chip.label}</span>
+              </motion.div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
 
-            <motion.div
-              className={`rounded-full ${node.isCenter ? 'w-5 h-5 bg-blue-500' : 'w-2.5 h-2.5 bg-blue-400/80'}`}
-              style={{
-                boxShadow: node.isCenter
-                  ? '0 0 20px #3B82F6, 0 0 40px #3B82F6'
-                  : '0 0 10px #60A5FA',
-              }}
-              animate={node.isCenter ? {
-                scale: [1, 1.15, 1],
-              } : {}}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            <AnimatePresence>
-              {hoveredNode?.id === node.id && node.label && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                  animate={{ opacity: 1, y: -45, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                  className="absolute left-1/2 -translate-x-1/2 pointer-events-none z-50 min-w-[140px]"
-                >
-                  <div className="bg-slate-900/90 backdrop-blur-xl border border-white/10 px-4 py-2.5 rounded-xl shadow-2xl overflow-hidden text-center">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
-                    <p className="text-xs font-bold text-white relative z-10">{node.label}</p>
-                    {node.desc && (
-                      <p className="text-[10px] text-white/50 relative z-10 mt-0.5 whitespace-nowrap">{node.desc}</p>
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        ))}
-
-        {/* Technology Chips */}
-        {visibleChips.map((chip, index) => (
+        {/* Node Tooltips */}
+        {hoveredNode !== null && TOOLTIPS[hoveredNode] && (
           <motion.div
-            key={chip.name}
-            className="absolute z-20 px-4 py-2 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md shadow-lg"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: [0, Math.sin(index) * 10, 0],
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="absolute z-50 pointer-events-none"
+            style={{
+              left: `${FIXED_NODES.find(n => n.id === hoveredNode)!.x}%`,
+              top: `${FIXED_NODES.find(n => n.id === hoveredNode)!.y}%`,
+              transform: "translate(-50%, -140%)"
             }}
-            transition={{
-              opacity: { delay: 0.5 + index * 0.1 },
-              scale: { delay: 0.5 + index * 0.1 },
-              y: { duration: 5 + index, repeat: Infinity, ease: "easeInOut" },
-            }}
-            style={getChipStyle(index)}
           >
-            <span className="text-[10px] md:text-xs font-semibold text-white/90 tracking-wide">
-              {chip.name}
-            </span>
+            <div className="px-3 py-2 rounded-lg bg-surface/95 border border-primary/20 backdrop-blur-xl shadow-2xl min-w-[140px] text-center">
+              <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-0.5">{TOOLTIPS[hoveredNode].title}</p>
+              <p className="text-[10px] text-white/60 font-medium">{TOOLTIPS[hoveredNode].desc}</p>
+            </div>
+            <div className="w-2.5 h-2.5 bg-surface/95 border-r border-b border-primary/20 rotate-45 mx-auto -mt-1.5" />
           </motion.div>
-        ))}
-      </motion.div>
+        )}
 
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-radial-gradient from-blue-500/10 to-transparent rounded-full blur-3xl -z-10 opacity-50" />
+        {/* Chip Tooltips */}
+        {hoveredChip !== null && CHIP_TOOLTIPS[hoveredChip] && (
+          <motion.div
+            initial={{ opacity: 0, y: 5, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="absolute z-50 pointer-events-none"
+            style={{
+              left: `${TECH_CHIPS.find(c => c.id === hoveredChip)!.x}%`,
+              top: `${TECH_CHIPS.find(c => c.id === hoveredChip)!.y}%`,
+              transform: "translate(-50%, -160%)"
+            }}
+          >
+            <div className="px-3 py-2 rounded-lg bg-surface/95 border border-secondary/20 backdrop-blur-xl shadow-2xl min-w-[120px] text-center">
+              <p className="text-[10px] font-black text-secondary uppercase tracking-widest mb-0.5">{CHIP_TOOLTIPS[hoveredChip].title}</p>
+              <p className="text-[10px] text-white/60 font-medium">{CHIP_TOOLTIPS[hoveredChip].desc}</p>
+            </div>
+            <div className="w-2 h-2 bg-surface/95 border-r border-b border-secondary/20 rotate-45 mx-auto -mt-1.2" />
+          </motion.div>
+        )}
+      </motion.div>
     </div>
-  );
-};
+  )
+}
