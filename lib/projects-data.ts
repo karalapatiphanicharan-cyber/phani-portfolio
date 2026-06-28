@@ -233,6 +233,22 @@ export const studyProjects: Project[] = [
       color: "cyan",
     },
   },
+  {
+    id: "vertexflow",
+    category: "Graph Algorithm Visualization Platform",
+    name: "VertexFlow",
+    subtitle: "Visualize Graph Algorithms Like Never Before.",
+    description: "VertexFlow is a modern interactive graph algorithm visualization platform designed for students, developers, educators, and interview candidates. It provides real-time visual learning through interactive graph creation, step-by-step algorithm execution, algorithm comparison, educational content, and advanced graph analysis.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Graph Algorithms", "Data Structures", "Visualization"],
+    features: ["Interactive Graph Playground", "Graph Editor", "Step-by-Step Visualization", "Comparison Mode", "Learning Hub", "Complexity Analysis", "Graph Statistics", "Import / Export"],
+    liveUrl: "https://vertexflow-sigma.vercel.app/",
+    githubUrl: "https://github.com/karalapatiphanicharan-cyber/vertexflow",
+    visual: {
+      gradient: "from-blue-600 via-indigo-500 to-purple-600",
+      emojis: ["🕸️", "✨", "📈"],
+      color: "indigo",
+    },
+  },
 ];
 
 export const mlProjects: Project[] = [
