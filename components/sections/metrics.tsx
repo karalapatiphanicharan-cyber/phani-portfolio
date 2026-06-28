@@ -8,28 +8,28 @@ import { fadeUp, staggerContainer } from "@/lib/animations"
 
 const metrics = [
   {
-    number: 11,
+    number: 15,
     suffix: "+",
     title: "Software Products Built",
-    description: "Production-ready software across AI, education, and developer tools.",
+    description: "Production-ready software products across AI, Machine Learning, Full-Stack Development, educational platforms, productivity tools, and interactive applications.",
   },
   {
-    number: 170,
+    number: 200,
     suffix: "+",
     title: "LeetCode Problems Solved",
-    description: "Consistent problem solving and algorithm practice.",
+    description: "Consistent problem solving in Data Structures, Algorithms, and competitive programming.",
   },
   {
-    number: 700,
+    number: 25,
     suffix: "+",
-    title: "GitHub Contributions",
-    description: "Continuous development and open-source contributions.",
+    title: "GitHub Repositories",
+    description: "Active open-source development with high-quality full-stack, AI, and machine learning projects.",
   },
   {
-    number: 4,
+    number: 5,
     suffix: "+",
     title: "Professional Certifications",
-    description: "Professional learning across AI, databases, and modern software development.",
+    description: "Industry-recognized certifications across Artificial Intelligence, Machine Learning, Databases, and Modern Software Development.",
   },
 ]
 
