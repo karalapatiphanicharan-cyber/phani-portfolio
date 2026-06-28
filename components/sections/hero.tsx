@@ -55,7 +55,7 @@ export function Hero() {
   }
 
   return (
-    <Section id="home" className="relative pt-32 md:pt-48 pb-20 md:pb-32 overflow-hidden">
+    <Section id="home" className="relative pt-32 md:pt-40 pb-20 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px] animate-pulse" />
@@ -80,9 +80,9 @@ export function Hero() {
 
               <div className="space-y-4">
                 <motion.div variants={fadeUp} className="space-y-2">
-                  <h2 className="text-lg md:text-xl font-medium text-muted-foreground tracking-tight">
+                  <p className="text-lg md:text-xl font-medium text-muted-foreground tracking-tight">
                     Hi, I&apos;m
-                  </h2>
+                  </p>
                   <h1 className="text-5xl md:text-7xl font-heading font-bold tracking-tighter text-foreground">
                     K. Sri Phani <span className="text-primary">Charan</span>
                   </h1>
@@ -94,12 +94,12 @@ export function Hero() {
                   </p>
                 </motion.div>
 
-                <motion.h3
+                <motion.h2
                   variants={blurReveal}
                   className="text-2xl md:text-4xl font-heading font-bold leading-tight tracking-tight text-foreground max-w-xl"
                 >
                   Building Intelligent Software That Solves Real-World Problems
-                </motion.h3>
+                </motion.h2>
 
                 <motion.p
                   variants={fadeUp}

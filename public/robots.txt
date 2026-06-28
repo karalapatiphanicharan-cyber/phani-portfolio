@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://karalapatiphanicharan.vercel.app/sitemap.xml
