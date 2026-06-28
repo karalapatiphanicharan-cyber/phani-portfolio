@@ -74,15 +74,19 @@ export function Hero() {
               className="flex flex-col space-y-6 md:space-y-8"
             >
               <motion.div variants={fadeUp}>
-                <Badge variant="glass" className="px-4 py-1 border-primary/20 text-primary">
-                  Available for opportunities
+                <Badge variant="glass" className="px-4 py-1 border-primary/20 text-primary flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  Available for Opportunities
                 </Badge>
               </motion.div>
 
               <div className="space-y-4">
                 <motion.div variants={fadeUp} className="space-y-2">
                   <p className="text-lg md:text-xl font-medium text-muted-foreground tracking-tight">
-                    Hi, I&apos;m
+                    👋 Hi, I&apos;m
                   </p>
                   <h1 className="text-5xl md:text-7xl font-heading font-bold tracking-tighter text-foreground">
                     K. Sri Phani <span className="text-primary">Charan</span>
@@ -117,13 +121,18 @@ export function Hero() {
                 <Button
                   variant="primary"
                   size="lg"
-                  className="rounded-full group px-8"
+                  className="rounded-full group px-8 shadow-lg shadow-primary/10 hover:-translate-y-0.5 transition-all duration-300 hover:shadow-[0_0_25px_rgba(59,130,246,0.4)] hover:scale-[1.02]"
                   onClick={scrollToProjects}
                 >
                   View Projects
-                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1.5" />
                 </Button>
-                <Button variant="outline" size="lg" className="rounded-full border-white/10 hover:bg-white/5 px-8" asChild>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full border-white/10 hover:bg-white/5 px-8 hover:-translate-y-0.5 transition-all duration-300 hover:shadow-[0_0_25px_rgba(139,92,246,0.25)] hover:scale-[1.02]"
+                  asChild
+                >
                   <a
                     href="/resume/PhaniCharanResume.pdf"
                     target="_blank"
@@ -138,42 +147,47 @@ export function Hero() {
 
               <motion.div variants={fadeUp} className="flex items-center gap-4 pt-4">
                 {socialLinks.map((social) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{
-                      y: -4,
-                      scale: 1.1,
-                      boxShadow: "0 0 15px rgba(59,130,246,0.3)"
-                    }}
-                    className="p-3 rounded-full border border-border bg-surface/50 hover:bg-surface hover:border-primary/50 transition-all duration-300 group shadow-sm"
-                    aria-label={social.name}
-                  >
-                    <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </motion.a>
+                  <div key={social.name} className="relative group">
+                    <motion.a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{
+                        y: -4,
+                        scale: 1.1,
+                        boxShadow: "0 0 20px rgba(59,130,246,0.4)"
+                      }}
+                      className="p-3 rounded-full border border-border bg-surface/50 hover:bg-surface hover:border-primary/50 transition-all duration-300 shadow-sm block"
+                      aria-label={social.name}
+                    >
+                      <social.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </motion.a>
+                    {/* Tooltip */}
+                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-surface border border-white/10 rounded text-[10px] text-white opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
+                      {social.name}
+                    </div>
+                  </div>
                 ))}
               </motion.div>
             </motion.div>
 
-            {/* Right Visual */}
+            {/* Right Visual - AI Neural Network */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-              className="relative block"
+              className="relative"
             >
-              <div className="relative w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] aspect-square mx-auto lg:ml-auto mt-12 lg:mt-0 flex items-center justify-center">
-                {/* Background Decorative Circles - Preserved as requested */}
-                <div className="absolute inset-0 border border-white/[0.05] rounded-full scale-110 animate-[spin_60s_linear_infinite]" />
-                <div className="absolute inset-0 border border-white/[0.03] rounded-full scale-125 animate-[spin_90s_linear_infinite_reverse]" />
+              <div className="relative aspect-square w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] mx-auto lg:ml-auto mt-12 lg:mt-0 flex items-center justify-center">
+                {/* Circular Decorative Rings */}
+                <div className="absolute inset-0 border border-white/[0.05] rounded-full scale-110 animate-[spin_40s_linear_infinite]" />
+                <div className="absolute inset-0 border border-white/[0.03] rounded-full scale-125 animate-[spin_60s_linear_infinite_reverse]" />
 
-                {/* Central Glow - Preserved & Enhanced for the Network */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/20 rounded-full blur-[120px] animate-pulse opacity-50" />
+                {/* Soft blue-purple background gradient for the network - Very subtle opacity (around 5%) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[130%] h-[130%] bg-gradient-to-br from-primary/5 via-secondary/5 to-primary/5 rounded-full blur-[100px] pointer-events-none opacity-[0.05]" />
 
-                {/* Neural Network Visualization */}
-                <div className="relative z-10 w-full h-full">
+                {/* The Neural Network Visualization */}
+                <div className="relative w-full h-full">
                   <AINeuralNetwork />
                 </div>
               </div>
